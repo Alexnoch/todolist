@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/msluganskiy/TODOLIST#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.1.0"
   }
 }

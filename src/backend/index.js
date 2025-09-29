@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
+const cors = require('cors')
 
+app.use(cors())
 app.use(express.json())
 
 const http = require('http');
@@ -29,27 +31,26 @@ const readFile = () => {
 app.get('/todos', (req, res) => {
     // Получаем весь список дел из файла
     const todos = readFile();
-    res.send({ ok: true, data: JSON.stringify(todos) });
+    res.send({ ok: true, data: todos });
 });
 
 app.post('/todos', (req, res) => {
     // Создаём новое дело, формат: {id:number, title:string}
     const newTodo = req.body;
     const todos = readFile();
-
     todos.push({ id: todos.length + 1, title: newTodo.title });
     writeTodosToFile(todos);
 
-    res.send({ ok: true, data: JSON.stringify(todos) })
+    res.send({ ok: true, data: todos })
 })
 
 app.patch('/todos', (req, res) => {
     // Обновляем задачу формат: {id:number, title:string}
     const editTodo = req.body;
     const todos = readFile();
-    const newTodos = todos.map((todo) => (todo.id === editTodo.id) ? { ...todo, title: editTodo.title } : todo)
+    const newTodos = todos.map((todo) => (todo.id === editTodo.id) ? { ...todo, title: editTodo.title, done: editTodo?.done } : todo)
     writeTodosToFile(newTodos);
-    res.send({ ok: true, data: JSON.stringify(newTodos) })
+    res.send({ ok: true, data: newTodos })
 })
 
 app.delete('/todos/:id', (req, res) => {
@@ -58,10 +59,10 @@ app.delete('/todos/:id', (req, res) => {
     const todos = readFile();
     const newTodos = todos.filter((todo)=>todo.id != deleteTodoId);
     writeTodosToFile(newTodos);
-    res.send({ ok: true, data: JSON.stringify(newTodos) })
+    res.send({ ok: true, data: newTodos })
 })
 
-app.listen(3000)
+app.listen(3001)
 
 
 

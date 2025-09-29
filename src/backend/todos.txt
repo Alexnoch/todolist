@@ -8,11 +8,17 @@
     "title": "Купить хлеб"
   },
   {
-    "id": 4,
-    "title": "Забрать посылку с WB"
+    "id": 3,
+    "title": "Забрать посылку на WB ",
+    "done": true
+  },
+  {
+    "id": 6,
+    "title": "sdfsdfsdf"
   },
   {
     "id": 5,
-    "title": "Отнести в ремонт сапоги"
+    "title": "test",
+    "done": false
   }
 ]
